@@ -4,16 +4,16 @@
 **Feature**: Wi‑Fi provisioning (Connection Portal)
 
 ## Phase 1: Setup
-- [ ] T001 [P] Create `requirements.txt` with `flask`, `requests`, `python-networkmanager` (optional), and `pynacl` at `requirements.txt`
-- [ ] T002 Create example configuration file `config.yaml.example` with keys: `ap_ssid`, `ap_mode`, `credential_file_path`, `service_user` at `config.yaml.example`
-- [ ] T003 Create systemd unit template for the provisioning service at `packaging/systemd/weatherbox-provisioning.service`
+- [x] T001 [P] Create `requirements.txt` with `flask`, `requests`, `python-networkmanager` (optional), and `pynacl` at `requirements.txt`
+- [x] T002 Create example configuration file `config.yaml.example` with keys: `ap_ssid`, `ap_mode`, `credential_file_path`, `service_user` at `config.yaml.example`
+- [x] T003 Create systemd unit template for the provisioning service at `packaging/systemd/weatherbox-provisioning.service`
 
 ## Phase 2: Foundational
-- [ ] T004 Create Wi‑Fi adapter interface `WifiAdapter` (methods: `scan()`, `connect(ssid,password)`, `status()`) at `src/weatherbox/wifi/adapter.py`
-- [ ] T005 [P] Implement NetworkManager adapter at `src/weatherbox/wifi/nm_adapter.py` that implements `WifiAdapter` (use `python-networkmanager` or `nmcli` fallback)
-- [ ] T006 [P] Implement wpa_supplicant adapter at `src/weatherbox/wifi/wpa_adapter.py` that implements `WifiAdapter` (shell out to `wpa_cli`/`wpa_supplicant`)
-- [ ] T007 Create credential storage helper functions (`save_credentials`, `load_credentials`, `secure_file_permissions`) at `src/weatherbox/credentials/store.py`
-- [ ] T008 Create logging configuration and a provisioning logger at `src/weatherbox/logging.py`
+- [x] T004 Create Wi‑Fi adapter interface `WifiAdapter` (methods: `scan()`, `connect(ssid,password)`, `status()`) at `src/weatherbox/wifi/adapter.py`
+- [x] T005 [P] Implement NetworkManager adapter at `src/weatherbox/wifi/nm_adapter.py` that implements `WifiAdapter` (use `python-networkmanager` or `nmcli` fallback)
+- [x] T006 [P] Implement wpa_supplicant adapter at `src/weatherbox/wifi/wpa_adapter.py` that implements `WifiAdapter` (shell out to `wpa_cli`/`wpa_supplicant`)
+- [x] T007 Create credential storage helper functions (`save_credentials`, `load_credentials`, `secure_file_permissions`) at `src/weatherbox/credentials/store.py`
+- [x] T008 Create logging configuration and a provisioning logger at `src/weatherbox/logging.py`
 
 ## Phase 3: [US1] Wi‑Fi provisioning & persistent connection
 - [ ] T009 [US1] Implement boot orchestration `boot_provision()` that: reads stored credentials, attempts up to 3 connects (with backoff), and falls back to AP mode on failure at `src/weatherbox/provisioning/boot.py`

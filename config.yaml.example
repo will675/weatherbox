@@ -1,0 +1,30 @@
+# Wi-Fi Provisioning Configuration
+
+# Access Point Settings
+ap_ssid: "weatherbox-setup"
+ap_mode: "open"  # Options: "open" (captive portal on local IP), "wpa2" (default password printed on device)
+ap_psk: "weatherbox-default-pass"  # Only used if ap_mode is "wpa2"
+
+# Credential Storage
+credential_file_path: "/etc/weatherbox/credentials.yaml"
+service_user: "weatherbox"
+enable_encryption: false  # Set to true to encrypt credentials at rest with libsodium
+
+# Provisioning UI
+captive_ui_port: 8080
+ui_request_timeout: 30  # seconds
+
+# Retry Attempts
+connection_attempts: 3
+attempt_backoff_seconds: 5
+
+# Logging
+log_level: "INFO"
+log_file: "/var/log/weatherbox/provisioning.log"
+
+# Location and Display (shared config - commented for reference)
+# location_code: "350023"  # Met Office location code (for 002-weather-display feature)
+# brightness_cap: 200  # 0-255 scale
+
+# Icon Mapping (shared config - commented for reference)
+# icons_config_path: "config/icons.yaml"

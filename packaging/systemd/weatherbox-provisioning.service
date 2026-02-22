@@ -1,0 +1,26 @@
+[Unit]
+Description=Weatherbox Wi-Fi Provisioning Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=weatherbox
+WorkingDirectory=/opt/weatherbox
+ExecStart=/usr/bin/python3 /opt/weatherbox/src/weatherbox/provisioning/boot.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+ProtectSystem=strict
+ProtectHome=yes
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Allow access to Wi-Fi stack (NetworkManager/wpa_supplicant)
+PrivateNetwork=false
+
+[Install]
+WantedBy=multi-user.target
