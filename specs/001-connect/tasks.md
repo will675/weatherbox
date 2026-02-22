@@ -16,12 +16,12 @@
 - [x] T008 Create logging configuration and a provisioning logger at `src/weatherbox/logging.py`
 
 ## Phase 3: [US1] Wi‑Fi provisioning & persistent connection
-- [ ] T009 [US1] Implement boot orchestration `boot_provision()` that: reads stored credentials, attempts up to 3 connects (with backoff), and falls back to AP mode on failure at `src/weatherbox/provisioning/boot.py`
-- [ ] T010 [US1] [P] Implement AP manager to bring up an access point (NetworkManager/hostapd wrappers) at `src/weatherbox/provisioning/ap_manager.py`
-- [ ] T011 [US1] [P] Scaffold captive portal Flask app with endpoints `/scan` (returns SSIDs) and `/provision` (accepts credentials) at `src/weatherbox/provisioning/app.py` and static files at `src/weatherbox/provisioning/static/index.html`
-- [ ] T012 [US1] Implement client-side validation for the provisioning form (non-empty, length limits) and server-side CSRF protections in `src/weatherbox/provisioning/static/index.html` and `src/weatherbox/provisioning/app.py`
-- [ ] T013 [US1] Store provisioned credentials via the credential helper to a secure path (default `/etc/weatherbox/credentials.yaml`) and ensure file mode `0600` at `src/weatherbox/credentials/store.py` (usage: invoked by `app.py`)
-- [ ] T014 [US1] Add observable events/logs for connection attempts, provisioning submissions, and failures at `src/weatherbox/logging.py`
+- [x] T009 [US1] Implement boot orchestration `boot_provision()` that: reads stored credentials, attempts up to 3 connects (with backoff), and falls back to AP mode on failure at `src/weatherbox/provisioning/boot.py`
+- [x] T010 [US1] [P] Implement AP manager to bring up an access point (NetworkManager/hostapd wrappers) at `src/weatherbox/provisioning/ap_manager.py`
+- [x] T011 [US1] [P] Scaffold captive portal Flask app with endpoints `/scan` (returns SSIDs) and `/provision` (accepts credentials) at `src/weatherbox/provisioning/app.py` and static files at `src/weatherbox/provisioning/static/index.html`
+- [x] T012 [US1] Implement client-side validation for the provisioning form (non-empty, length limits) and server-side CSRF protections in `src/weatherbox/provisioning/static/index.html` and `src/weatherbox/provisioning/app.py`
+- [x] T013 [US1] Store provisioned credentials via the credential helper to a secure path (default `/etc/weatherbox/credentials.yaml`) and ensure file mode `0600` at `src/weatherbox/credentials/store.py` (usage: invoked by `app.py`)
+- [x] T014 [US1] Add observable events/logs for connection attempts, provisioning submissions, and failures at `src/weatherbox/logging.py`
 
 ## Phase 4: Tests & Integration
 - [ ] T015 [US1] [P] Add unit tests for adapter interface and adapters at `tests/unit/test_wifi_adapter.py`
