@@ -24,9 +24,9 @@
 - [x] T014 [US1] Add observable events/logs for connection attempts, provisioning submissions, and failures at `src/weatherbox/logging.py`
 
 ## Phase 4: Tests & Integration
-- [ ] T015 [US1] [P] Add unit tests for adapter interface and adapters at `tests/unit/test_wifi_adapter.py`
-- [ ] T016 [US1] Add integration test script that simulates a fresh-boot provisioning flow using test doubles at `tests/integration/test_provision_flow.py`
-- [ ] T017 [US1] Add HIL checklist and a smoke test script for AP + captive UI availability at `specs/001-connect/checklists/hil.md` and `tools/hil/smoke_provision.sh`
+- [x] T015 [US1] [P] Add unit tests for adapter interface and adapters at `tests/unit/test_wifi_adapter.py`
+- [x] T016 [US1] Add integration test script that simulates a fresh-boot provisioning flow using test doubles at `tests/integration/test_provision_flow.py`
+- [x] T017 [US1] Add HIL checklist and a smoke test script for AP + captive UI availability at `specs/001-connect/checklists/hil.md` and `tools/hil/smoke_provision.sh`
 
 ## Final Phase: Polish & Cross-cutting
 - [ ] T018 Create `specs/001-connect/quickstart.md` with steps: flash image, first-boot behaviour, provisioning flow, and recovery instructions at `specs/001-connect/quickstart.md`
