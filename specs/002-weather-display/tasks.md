@@ -9,15 +9,15 @@
 - [x] T004 Create systemd unit template for the display service at `packaging/systemd/weatherbox-display.service`
 
 ## Phase 2: Foundational
-- [ ] T005 Create display adapter interface `DisplayAdapter` (methods: `render_frame(matrix_index, bitmap)`) at `src/weatherbox/display/adapter.py`
+- [x] T005 Create display adapter interface `DisplayAdapter` (methods: `render_frame(matrix_index, bitmap)`) at `src/weatherbox/display/adapter.py`
 - [ ] T006 [P] Implement rpi-rgb-led-matrix adapter at `src/weatherbox/display/rpi_adapter.py` using the hardware library
-- [ ] T007 [P] Implement frame-capture test adapter at `src/weatherbox/display/frame_capture.py` for unit/integration testing
-- [ ] T008 Create retry/backoff scheduler `RetryScheduler` (exponential backoff: 1 min ×5; 5 min ×12; 10 min thereafter) at `src/weatherbox/weather/retry_scheduler.py`
-- [ ] T009 Create update window scheduler that enforces 5-min daytime (06:00–23:00) and hourly night updates at `src/weatherbox/weather/retry_scheduler.py` (extend existing class)
-- [ ] T010 [P] Create Met Office API client and response parser at `src/weatherbox/weather/metoffice_adapter.py` handling 3-hourly periods and aggregation
-- [ ] T011 [P] Create forecast aggregator to compute daily summaries: max/min temps, most common day/night weather type at `src/weatherbox/weather/forecast_parser.py`
-- [ ] T012 Create icon mapping loader and validator at `src/weatherbox/icons/loader.py` with fallback icon logic
-- [ ] T013 Create logging configuration for display service at `src/weatherbox/logging.py` with structured logs for API errors, render events, and diagnostics
+- [x] T007 [P] Implement frame-capture test adapter at `src/weatherbox/display/frame_capture.py` for unit/integration testing
+- [x] T008 Create retry/backoff scheduler `RetryScheduler` (exponential backoff: 1 min ×5; 5 min ×12; 10 min thereafter) at `src/weatherbox/weather/retry_scheduler.py`
+- [x] T009 Create update window scheduler that enforces 5-min daytime (06:00–23:00) and hourly night updates at `src/weatherbox/weather/retry_scheduler.py` (extend existing class)
+- [x] T010 [P] Create Met Office API client and response parser at `src/weatherbox/weather/metoffice_adapter.py` handling 3-hourly periods and aggregation
+- [x] T011 [P] Create forecast aggregator to compute daily summaries: max/min temps, most common day/night weather type at `src/weatherbox/weather/forecast_parser.py`
+- [x] T012 Create icon mapping loader and validator at `src/weatherbox/icons/loader.py` with fallback icon logic
+- [x] T013 Create logging configuration for display service at `src/weatherbox/logging.py` with structured logs for API errors, render events, and diagnostics
 
 ## Phase 3: [US1] Forecast fetch and display
 - [ ] T014 [US1] [P] Implement brightness controller with caps and night mode (after 22:00) at `src/weatherbox/brightness/controller.py`
