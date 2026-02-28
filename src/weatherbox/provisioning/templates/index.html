@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weatherbox Wi-Fi Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, select, button {
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-scan {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-scan:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-submit {
+            background: #48bb78;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(72, 187, 120, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .networks-list {
+            background: #f8f9fa;
+            border-radius: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .network-item {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .network-item:last-child {
+            border-bottom: none;
+        }
+
+        .network-item:hover {
+            background: #eef0ff;
+        }
+
+        .network-item.selected {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding-left: 8px;
+        }
+
+        .network-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .network-signal {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .success {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .success.show {
+            display: block;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            margin-left: 8px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: loading 1.4s infinite;
+        }
+
+        @keyframes loading {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .password-strength {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #666;
+        }
+
+        .password-strength.weak {
+            color: #c53030;
+        }
+
+        .password-strength.fair {
+            color: #ed8936;
+        }
+
+        .password-strength.good {
+            color: #d69e2e;
+        }
+
+        .password-strength.strong {
+            color: #38a169;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌦️ Weatherbox</h1>
+            <p>Wi-Fi Setup</p>
+        </div>
+
+        <div id="errorMessage" class="error"></div>
+        <div id="successMessage" class="success"></div>
+
+        <form id="provisioning-form">
+            <!-- CSRF Token (hidden) -->
+            <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token }}">
+
+            <!-- Step 1: Scan for networks -->
+            <button type="button" id="scanBtn" class="btn-scan" onclick="scanNetworks()">
+                📡 Scan for Networks<span id="scanLoading" class="loading" style="display: none;"></span>
+            </button>
+
+            <!-- Available networks list -->
+            <div id="networksList" class="networks-list" style="display: none;"></div>
+
+            <div class="form-group">
+                <label for="ssid">Network Name (SSID)</label>
+                <input 
+                    type="text" 
+                    id="ssid" 
+                    name="ssid" 
+                    placeholder="Enter or select a network"
+                    maxlength="32"
+                    required
+                >
+                <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                    <span id="ssidLength">0</span>/32 characters
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter network password"
+                    maxlength="63"
+                    required
+                >
+                <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                    <span id="pwdLength">0</span>/63 characters (minimum 8)
+                </small>
+                <div id="passwordStrength" class="password-strength"></div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" id="submitBtn" class="btn-submit" onclick="submitCredentials(event)">
+                    ✓ Connect<span id="submitLoading" class="loading" style="display: none;"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // CSRF token management
+        function getCsrfToken() {
+            return document.getElementById('csrf_token').value;
+        }
+
+        function setError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+        }
+
+        function clearError() {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.classList.remove('show');
+        }
+
+        function setSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.classList.add('show');
+        }
+
+        function clearSuccess() {
+            const successEl = document.getElementById('successMessage');
+            successEl.classList.remove('show');
+        }
+
+        // Input validation
+        document.getElementById('ssid').addEventListener('input', function(e) {
+            document.getElementById('ssidLength').textContent = this.value.length;
+        });
+
+        document.getElementById('password').addEventListener('input', function(e) {
+            document.getElementById('pwdLength').textContent = this.value.length;
+            updatePasswordStrength(this.value);
+        });
+
+        function updatePasswordStrength(password) {
+            const strengthEl = document.getElementById('passwordStrength');
+            if (password.length === 0) {
+                strengthEl.textContent = '';
+                return;
+            }
+
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            const strengthTexts = ['Weak', 'Fair', 'Good', 'Strong'];
+            const strengthClasses = ['weak', 'fair', 'good', 'strong'];
+            const text = strengthTexts[Math.min(strength, 3)];
+            const cls = strengthClasses[Math.min(strength, 3)];
+
+            strengthEl.textContent = `Strength: ${text}`;
+            strengthEl.className = `password-strength ${cls}`;
+        }
+
+        // Scan networks
+        async function scanNetworks() {
+            const scanBtn = document.getElementById('scanBtn');
+            const scanLoading = document.getElementById('scanLoading');
+
+            try {
+                clearError();
+                scanBtn.disabled = true;
+                scanLoading.style.display = 'inline-block';
+
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        csrf_token: getCsrfToken()
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Scan failed');
+                }
+
+                const data = await response.json();
+                displayNetworks(data.networks);
+                document.getElementById('networksList').style.display = 'block';
+
+            } catch (error) {
+                setError(`Scan failed: ${error.message}`);
+            } finally {
+                scanBtn.disabled = false;
+                scanLoading.style.display = 'none';
+            }
+        }
+
+        function displayNetworks(networks) {
+            const listEl = document.getElementById('networksList');
+            listEl.innerHTML = '';
+
+            if (networks.length === 0) {
+                listEl.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No networks found</div>';
+                return;
+            }
+
+            networks.forEach(network => {
+                const item = document.createElement('div');
+                item.className = 'network-item';
+                item.innerHTML = `
+                    <div class="network-name">${escapeHtml(network.ssid)}</div>
+                    <div class="network-signal">
+                        Signal: ${network.strength}% | Security: ${network.security}
+                    </div>
+                `;
+
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.network-item').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    item.classList.add('selected');
+                    document.getElementById('ssid').value = network.ssid;
+                });
+
+                listEl.appendChild(item);
+            });
+        }
+
+        // Submit credentials
+        async function submitCredentials(e) {
+            e.preventDefault();
+
+            const ssid = document.getElementById('ssid').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const submitLoading = document.getElementById('submitLoading');
+
+            try {
+                clearError();
+                clearSuccess();
+
+                // Client-side validation
+                if (!ssid) {
+                    setError('Network name is required');
+                    return;
+                }
+
+                if (ssid.length > 32) {
+                    setError('Network name must be 32 characters or less');
+                    return;
+                }
+
+                if (!password) {
+                    setError('Password is required');
+                    return;
+                }
+
+                if (password.length < 8) {
+                    setError('Password must be at least 8 characters');
+                    return;
+                }
+
+                if (password.length > 63) {
+                    setError('Password must be 63 characters or less');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitLoading.style.display = 'inline-block';
+
+                const response = await fetch('/api/provision', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ssid: ssid,
+                        password: password,
+                        csrf_token: getCsrfToken()
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Provision failed');
+                }
+
+                setSuccess('✓ ' + data.message);
+                document.getElementById('provisioning-form').reset();
+
+            } catch (error) {
+                setError(`Error: ${error.message}`);
+            } finally {
+                submitBtn.disabled = false;
+                submitLoading.style.display = 'none';
+            }
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            clearError();
+            clearSuccess();
+        });
+    </script>
+</body>
+</html>

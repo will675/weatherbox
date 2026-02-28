@@ -1,0 +1,64 @@
+# Icon Mapping: Met Office Weather Types to 8×8 LED Matrix Icons
+#
+# This file maps Met Office weather type codes to icon IDs from led8x8icons.py.
+# Each entry defines what icon (as bitmap index) to display for a given weather condition.
+#
+# Met Office weather types (from API weather_type field):
+#   0: Clear night, 1: Sunny day, 2: Partly cloudy (night), 3: Partly cloudy (day),
+#   4: Not used, 5: Mist, 6: Fog, 7: Cloudy, 8: Overcast, 9: Light rain,
+#   10: Light rain (night), 11: Drizzle, 12: Light snow, 13: Light rain + snow,
+#   14: Partly cloudy + light rain, 15: Partly cloudy + light snow, 16: Partly cloudy + light rain + snow,
+#   17: Yellow warning (wind), 18: Orange warning (wind), 19: Red warning (wind),
+#   20: Yellow warning (snow), etc.
+
+# Default/Fallback mappings
+# (These are the most common conditions and should match icons in led8x8icons.py)
+
+# Clear/Sunny Conditions
+0: 0     # Clear night → Clear icon (0)
+1: 1     # Sunny day → Sun icon (1)
+
+# Partly Cloudy
+2: 2     # Partly cloudy (night) → Cloud+star icon (2)
+3: 3     # Partly cloudy (day) → Cloud+sun icon (3)
+
+# Cloud conditions
+5: 4     # Mist → Mist/fog icon (4)
+6: 4     # Fog → Mist/fog icon (4)
+7: 5     # Cloudy → Cloud icon (5)
+8: 5     # Overcast → Cloud icon (5)
+
+# Precipitation
+9: 6     # Light rain → Rain icon (6)
+10: 6    # Light rain (night) → Rain icon (6)
+11: 6    # Drizzle → Rain icon (6)
+12: 7    # Light snow → Snow icon (7)
+13: 8    # Light rain + snow → Sleet icon (8)
+14: 6    # Partly cloudy + light rain → Rain icon (6)
+15: 7    # Partly cloudy + light snow → Snow icon (7)
+16: 8    # Partly cloudy + light rain + snow → Sleet icon (8)
+
+# Warnings
+17: 9    # Yellow warning (wind) → Warning icon (9)
+18: 9    # Orange warning (wind) → Warning icon (9)
+19: 9    # Red warning (wind) → Warning icon (9)
+20: 10   # Yellow warning (snow) → Snow warning icon (10)
+
+# Fallback: Any unmapped weather type will use icon 0 (clear icon)
+# To debug unmapped types, enable verbose_api_logging in config.yaml
+
+# Icon Reference (must match led8x8icons.py):
+# 0: Clear/Checkmark pattern
+# 1: Sun pattern
+# 2: Cloud with star pattern
+# 3: Cloud with sun pattern
+# 4: Mist/fog pattern
+# 5: Cloud pattern
+# 6: Rain drops pattern
+# 7: Snow flakes pattern
+# 8: Sleet pattern (rain + snow)
+# 9: Warning/exclamation pattern
+# 10: Snow warning pattern
+#
+# To verify available icon IDs:
+#   python3 -c "from led8x8icons import ICONS; print(list(ICONS.keys()))"

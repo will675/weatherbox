@@ -1,0 +1,53 @@
+# Weather Display Configuration Example
+
+# Met Office API Configuration
+met_office:
+  location_code: "350023"              # Met Office location code (e.g., for Bristol: 350023)
+  # api_key: "YOUR_MET_OFFICE_API_KEY"  # Obtain from developer.weathergovernment.uk
+  # Leave empty to use public forecasts with rate limiting
+
+# Update Schedule
+update_window:
+  daytime_start: "06:00"               # Forecast updates during day
+  daytime_interval_minutes: 5          # Update every 5 minutes in daytime
+  night_start: "23:00"                 # Night mode starts
+  night_interval_minutes: 60           # Update hourly at night
+  transition_threshold_minutes: 30     # Transition buffer
+
+# Brightness Control
+brightness:
+  cap: 200                             # Max brightness (0-255)
+  night_mode_start: "22:00"            # Night mode dimming starts
+  night_reduction_percent: 50          # Reduce by 50% at night
+  # sensor_enabled: false              # Set to true if using ambient light sensor
+
+# Display Configuration
+display:
+  matrix_count: 4                      # Number of 8x8 LED matrices (typically 4)
+  primary_interface: "rpi_gpio"        # "rpi_gpio" for real Pi, "frame_capture" for testing
+  refresh_rate_hz: 30                  # Frame refresh rate
+
+# Icon Mapping
+icons:
+  config_path: "config/icons.yaml"     # Path to icon mapping file
+  fallback_icon_id: 0                  # First icon used as fallback for unknown weather types
+
+# Logging
+logging:
+  level: "INFO"                        # DEBUG, INFO, WARNING, ERROR
+  file: "/var/log/weatherbox/display.log"
+  max_size_mb: 10
+  backup_count: 5
+
+# Retry & Error Handling
+retry:
+  exponential_backoff: true            # Use exponential backoff for API failures
+  initial_interval_seconds: 60         # Start retry at 1 minute
+  max_interval_seconds: 600            # Cap retry at 10 minutes
+  max_total_time_hours: 24             # Give up after 24 hours
+
+# Diagnostics (for debugging)
+diagnostics:
+  capture_frames_on_error: true        # Save frame snapshots on crashes
+  capture_directory: "/tmp/weatherbox_diagnostics"
+  verbose_api_logging: false           # Log all Met Office API responses
