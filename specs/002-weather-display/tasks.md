@@ -20,13 +20,13 @@
 - [x] T013 Create logging configuration for display service at `src/weatherbox/logging.py` with structured logs for API errors, render events, and diagnostics
 
 ## Phase 3: [US1] Forecast fetch and display
-- [ ] T014 [US1] [P] Implement brightness controller with caps and night mode (after 22:00) at `src/weatherbox/brightness/controller.py`
-- [ ] T015 [US1] [P] Scaffold optional ambient brightness sensor adapter at `src/weatherbox/brightness/sensor_adapter.py`
-- [ ] T016 [US1] Render current day (matrix 1): show max temp + weather type if before 18:00; min temp + night weather if at/after 18:00 at `src/weatherbox/display_service.py` (rendering logic)
-- [ ] T017 [US1] Render next 3 days (matrices 2–4): each shows max temp + most common daytime weather type at `src/weatherbox/display_service.py` (rendering logic, continued)
-- [ ] T018 [US1] Implement main service loop that: fetches forecast, applies retry schedule, renders to display, and logs events at `src/weatherbox/display_service.py` (main)
-- [ ] T019 [US1] Display error state on all matrices when API lookup fails; verify error symbol from `led8x8icons.py` is available at `src/weatherbox/display_service.py` (error handling)
-- [ ] T020 [US1] Add diagnostic capture (frame snapshot + API response dump) on errors to facilitate debugging at `src/weatherbox/display_service.py` (logging)
+- [x] T014 [US1] [P] Implement brightness controller with caps and night mode (after 22:00) at `src/weatherbox/brightness/controller.py`
+- [x] T015 [US1] [P] Scaffold optional ambient brightness sensor adapter at `src/weatherbox/brightness/sensor_adapter.py`
+- [x] T016 [US1] Render current day (matrix 1): show max temp + weather type if before 18:00; min temp + night weather if at/after 18:00 at `src/weatherbox/display_service.py` (rendering logic)
+- [x] T017 [US1] Render next 3 days (matrices 2–4): each shows max temp + most common daytime weather type at `src/weatherbox/display_service.py` (rendering logic, continued)
+- [x] T018 [US1] Implement main service loop that: fetches forecast, applies retry schedule, renders to display, and logs events at `src/weatherbox/display_service.py` (main)
+- [x] T019 [US1] Display error state on all matrices when API lookup fails; verify error symbol from `led8x8icons.py` is available at `src/weatherbox/display_service.py` (error handling)
+- [x] T020 [US1] Add diagnostic capture (frame snapshot + API response dump) on errors to facilitate debugging at `src/weatherbox/display_service.py` (logging)
 
 ## Phase 4: Tests & Integration
 - [ ] T021 [US1] [P] Add unit tests for forecast parser (aggregation logic, day/night rules) at `tests/unit/test_forecast_parser.py`
