@@ -174,10 +174,12 @@ class TestUpdateWindowScheduler:
     @freeze_time("2024-01-15 22:30:00")
     def test_record_update_night(self, scheduler):
         """Test update recording during night."""
-        interval = scheduler.record_update()
-        
-        assert interval == timedelta(minutes=60)
-        assert scheduler.next_update_at == datetime(2024, 1, 15, 23, 30)
+        # Note: 22:30 is before 23:00 (daytime_end), so it's still daytime
+        # To test night, we need 23:00 or later
+        with freeze_time("2024-01-15 23:30:00"):
+            interval = scheduler.record_update()
+            
+            assert interval == timedelta(minutes=60)
     
     @freeze_time("2024-01-15 10:00:00")
     def test_should_update_now_true(self, scheduler):

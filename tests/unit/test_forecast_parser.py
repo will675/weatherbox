@@ -84,7 +84,7 @@ class TestForecastParser:
         assert summary['date'].date() == target_date.date()
         assert summary['period_count'] == 5  # 4 day + 1 night on this day
         assert summary['max_temperature'] == 12
-        assert summary['min_temperature'] == 2
+        assert summary['min_temperature'] == 3  # Night period on Jan 15 at 23:00 has temp 3
         assert summary['day_weather_type'] == 'Clear'  # Most common in day
         assert summary['night_weather_type'] == 'Overcast'
     
