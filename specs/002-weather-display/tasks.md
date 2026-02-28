@@ -10,7 +10,7 @@
 
 ## Phase 2: Foundational
 - [x] T005 Create display adapter interface `DisplayAdapter` (methods: `render_frame(matrix_index, bitmap)`) at `src/weatherbox/display/adapter.py`
-- [ ] T006 [P] Implement rpi-rgb-led-matrix adapter at `src/weatherbox/display/rpi_adapter.py` using the hardware library
+- [x] T006 [P] Implement rpi-rgb-led-matrix adapter at `src/weatherbox/display/rpi_adapter.py` using the hardware library
 - [x] T007 [P] Implement frame-capture test adapter at `src/weatherbox/display/frame_capture.py` for unit/integration testing
 - [x] T008 Create retry/backoff scheduler `RetryScheduler` (exponential backoff: 1 min ×5; 5 min ×12; 10 min thereafter) at `src/weatherbox/weather/retry_scheduler.py`
 - [x] T009 Create update window scheduler that enforces 5-min daytime (06:00–23:00) and hourly night updates at `src/weatherbox/weather/retry_scheduler.py` (extend existing class)
@@ -38,10 +38,10 @@
 - [x] T027 [US1] Add HIL checklist and smoke test script for display rotation (run on Pi with matrices attached) at `specs/002-weather-display/checklists/hil.md` and `tools/hil/hil_display_rotation.sh`
 
 ## Final Phase: Polish & Cross-cutting
-- [ ] T028 Create `specs/002-weather-display/quickstart.md` with steps: configure location, API key, icon mapping; deploy service; verify output at `specs/002-weather-display/quickstart.md`
-- [ ] T029 Document Met Office API integration, retry schedule, and brightness tuning at `specs/002-weather-display/research.md` (update existing file if needed)
-- [ ] T030 [P] Document icon mapping format and how to extend/customize at `config/icons.yaml.example` (comments/README)
-- [ ] T031 [P] Create packaging and install instructions (systemd integration, config placement) at `packaging/README.md`
+- [x] T028 Create `specs/002-weather-display/quickstart.md` with steps: configure location, API key, icon mapping; deploy service; verify output at `specs/002-weather-display/quickstart.md`
+- [x] T029 Document Met Office API integration, retry schedule, and brightness tuning at `specs/002-weather-display/research.md` (update existing file if needed)
+- [x] T030 [P] Document icon mapping format and how to extend/customize at `config/icons.yaml.example` (comments/README)
+- [x] T031 [P] Create packaging and install instructions (systemd integration, config placement) at `packaging/README.md`
 
 ## Dependencies
 - Order: Phase1 → Phase2 → Phase3 (US1) → Phase4 → Final
