@@ -35,7 +35,7 @@
 - [x] T024 [US1] Add integration test: fetch + parse + render cycle with stubbed API, verify frame output at `tests/integration/test_forecast_fetch_and_render.py`
 - [x] T025 [US1] Add integration test: simulate API failure, verify retry schedule executes and error symbol appears on display at `tests/integration/test_forecast_fetch_and_render.py` (continued)
 - [x] T026 [US1] Add integration test: verify update cadence (5-min daytime, hourly night) using mocked time at `tests/integration/test_update_schedule.py`
-- [ ] T027 [US1] Add HIL checklist and smoke test script for display rotation (run on Pi with matrices attached) at `specs/002-weather-display/checklists/hil.md` and `tools/hil/hil_display_rotation.sh`
+- [x] T027 [US1] Add HIL checklist and smoke test script for display rotation (run on Pi with matrices attached) at `specs/002-weather-display/checklists/hil.md` and `tools/hil/hil_display_rotation.sh`
 
 ## Final Phase: Polish & Cross-cutting
 - [ ] T028 Create `specs/002-weather-display/quickstart.md` with steps: configure location, API key, icon mapping; deploy service; verify output at `specs/002-weather-display/quickstart.md`
