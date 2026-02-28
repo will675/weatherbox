@@ -29,12 +29,12 @@
 - [x] T020 [US1] Add diagnostic capture (frame snapshot + API response dump) on errors to facilitate debugging at `src/weatherbox/display_service.py` (logging)
 
 ## Phase 4: Tests & Integration
-- [ ] T021 [US1] [P] Add unit tests for forecast parser (aggregation logic, day/night rules) at `tests/unit/test_forecast_parser.py`
-- [ ] T022 [US1] [P] Add unit tests for retry scheduler (backoff state machine, update window transitions) at `tests/unit/test_retry_scheduler.py`
-- [ ] T023 [US1] [P] Add unit tests for brightness controller (caps, night mode transitions) at `tests/unit/test_brightness_controller.py`
-- [ ] T024 [US1] Add integration test: fetch + parse + render cycle with stubbed API, verify frame output at `tests/integration/test_forecast_fetch_and_render.py`
-- [ ] T025 [US1] Add integration test: simulate API failure, verify retry schedule executes and error symbol appears on display at `tests/integration/test_forecast_fetch_and_render.py` (continued)
-- [ ] T026 [US1] Add integration test: verify update cadence (5-min daytime, hourly night) using mocked time at `tests/integration/test_update_schedule.py`
+- [x] T021 [US1] [P] Add unit tests for forecast parser (aggregation logic, day/night rules) at `tests/unit/test_forecast_parser.py`
+- [x] T022 [US1] [P] Add unit tests for retry scheduler (backoff state machine, update window transitions) at `tests/unit/test_retry_scheduler.py`
+- [x] T023 [US1] [P] Add unit tests for brightness controller (caps, night mode transitions) at `tests/unit/test_brightness_controller.py`
+- [x] T024 [US1] Add integration test: fetch + parse + render cycle with stubbed API, verify frame output at `tests/integration/test_forecast_fetch_and_render.py`
+- [x] T025 [US1] Add integration test: simulate API failure, verify retry schedule executes and error symbol appears on display at `tests/integration/test_forecast_fetch_and_render.py` (continued)
+- [x] T026 [US1] Add integration test: verify update cadence (5-min daytime, hourly night) using mocked time at `tests/integration/test_update_schedule.py`
 - [ ] T027 [US1] Add HIL checklist and smoke test script for display rotation (run on Pi with matrices attached) at `specs/002-weather-display/checklists/hil.md` and `tools/hil/hil_display_rotation.sh`
 
 ## Final Phase: Polish & Cross-cutting
