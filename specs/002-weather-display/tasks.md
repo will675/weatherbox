@@ -3,10 +3,10 @@
 **Feature**: Weather fetch and 8×8 display
 
 ## Phase 1: Setup
-- [ ] T001 [P] Create `requirements.txt` with `requests`, `apscheduler`, `pytz`, `pyyaml`, `rpi-rgb-led-matrix` (or mock), and test deps: `pytest`, `freezegun` at `requirements.txt`
-- [ ] T002 Create example configuration file `config.yaml.example` with keys: `met_office_location_code`, `api_key` (optional), `update_window_day`, `update_window_night`, `brightness_cap`, `icons_config_path` at `config.yaml.example`
-- [ ] T003 Create sample icon mapping file `config/icons.yaml.example` with Met Office weather types mapped to icon IDs from `led8x8icons.py` at `config/icons.yaml.example`
-- [ ] T004 Create systemd unit template for the display service at `packaging/systemd/weatherbox-display.service`
+- [x] T001 [P] Create `requirements.txt` with `requests`, `apscheduler`, `pytz`, `pyyaml`, `rpi-rgb-led-matrix` (or mock), and test deps: `pytest`, `freezegun` at `requirements.txt`
+- [x] T002 Create example configuration file `config.yaml.example` with keys: `met_office_location_code`, `api_key` (optional), `update_window_day`, `update_window_night`, `brightness_cap`, `icons_config_path` at `config.yaml.example`
+- [x] T003 Create sample icon mapping file `config/icons.yaml.example` with Met Office weather types mapped to icon IDs from `led8x8icons.py` at `config/icons.yaml.example`
+- [x] T004 Create systemd unit template for the display service at `packaging/systemd/weatherbox-display.service`
 
 ## Phase 2: Foundational
 - [ ] T005 Create display adapter interface `DisplayAdapter` (methods: `render_frame(matrix_index, bitmap)`) at `src/weatherbox/display/adapter.py`

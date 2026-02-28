@@ -1,0 +1,39 @@
+[Unit]
+Description=Weatherbox Weather Display Service
+Documentation=https://github.com/yourusername/weatherbox
+After=network-online.target weatherbox-provisioning.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/weatherbox
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/usr/bin/python3 /opt/weatherbox/src/weatherbox/display_service.py
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+StartLimitInterval=300
+StartLimitBurst=5
+
+# Security context
+ProtectSystem=strict
+ProtectHome=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=weatherbox-display
+
+# Resource limits
+MemoryLimit=256M
+CPUQuota=50%
+
+# Device access (for GPIO/SPI to LED matrices)
+PrivateDevices=no
+
+[Install]
+WantedBy=multi-user.target

@@ -11,6 +11,21 @@
   - Rationale: file-permissions-only is universally available and simple to implement/test; using OS keyring or hardware-backed storage increases security where available. Provide configuration to enable encryption for deployments that can provision a device key.
   - Alternatives considered: enforced OS keyring only (not universally available on minimal Pi images), storing in plaintext (rejected).
 
+  **Implementation Details**:
+  - **Default**: Credentials stored in JSON format at `/etc/weatherbox/credentials.yaml` (YAML for consistency with config)
+  - **File permissions**: Set to `0o600` (read/write for owner only)
+  - **Owner**: Service user (default `root`; customizable in config)
+  - **Contents**: Simple flat JSON: `{"ssid": "NetworkName", "password": "pwd", "security_type": "WPA2"}`
+  - **Access control**: Only service user can read credentials; provisioning service runs as service user; boot provisioning script runs with sudo
+  - **Encryption opt-in** (future enhancement):
+    - If `enable_encryption: true` in config, use `pynacl.secret.SecretBox` with a device-provisioned key
+    - Device key could come from:
+      - TPM (if available): most secure
+      - Per-device UUID/MAC + factory-set master key: good for IoT fleets
+      - Manual provisioning (least UX-friendly)
+    - Encrypted credentials stored in binary format alongside plaintext metadata file
+  - **No current encryption**: MVP uses file permissions only; encryption deferred to later phase if threat model warrants
+
 - Decision: **Wi‑Fi stack abstraction** — implement a small abstraction layer over the system Wi‑Fi manager. Prefer using **NetworkManager** via `python-networkmanager` when present; fallback to `wpa_supplicant`/`wpa_cli` or `nmcli` invocations on systems without NetworkManager.
   - Rationale: NetworkManager simplifies scans, connection attempts and status queries for many Linux distros. A thin adapter supports test doubles in CI and allows deployment flexibility.
 

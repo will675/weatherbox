@@ -29,9 +29,9 @@
 - [x] T017 [US1] Add HIL checklist and a smoke test script for AP + captive UI availability at `specs/001-connect/checklists/hil.md` and `tools/hil/smoke_provision.sh`
 
 ## Final Phase: Polish & Cross-cutting
-- [ ] T018 Create `specs/001-connect/quickstart.md` with steps: flash image, first-boot behaviour, provisioning flow, and recovery instructions at `specs/001-connect/quickstart.md`
-- [ ] T019 Document credential storage choices and how to enable optional encryption at `specs/001-connect/research.md` (update existing file)
-- [ ] T020 [P] Create packaging and install instructions (how to enable systemd unit) at `packaging/README.md`
+- [x] T018 Create `specs/001-connect/quickstart.md` with steps: flash image, first-boot behaviour, provisioning flow, and recovery instructions at `specs/001-connect/quickstart.md`
+- [x] T019 Document credential storage choices and how to enable optional encryption at `specs/001-connect/research.md` (update existing file)
+- [x] T020 [P] Create packaging and install instructions (how to enable systemd unit) at `packaging/README.md`
 
 ## Dependencies
 - Order: Phase1 → Phase2 → Phase3 (US1) → Phase4 → Final
